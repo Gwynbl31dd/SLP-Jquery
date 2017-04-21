@@ -1,9 +1,9 @@
 /**
- * SLP v 0.2.0
+ * SLP v 0.2.1
  * @author Anthony Paulin <paulin.anthony@gmail.com>
  * @since 13-04-2017
  */
-$(document).ready(function(){
+function slp_init(min,max,function_todo){
 	//Initialise variable
 	var $login = $('#login'),
 		$password = $('#password'),
@@ -11,8 +11,9 @@ $(document).ready(function(){
 		$email = $('#email'),
 		$submit = $('#submit'),
 		$formControle = $('.form-control:not(#email)'),
-		minLength = 5,//Minimal length
-		maxLength = 20;//Maximal length
+		minLength = min,//Minimal length
+		maxLength = max,
+		todo = function_todo;//Maximal length
 	
 	//Check the key on login
 	$formControle.on('focus keyup hover change',function(){
@@ -67,31 +68,23 @@ $(document).ready(function(){
 	//Finaly, check all the CSS entries
 	$submit.click(function(e){
 		//Check all the entry
-		
 		if($login.parent().hasClass("has-error") == false
 				&& $password.parent().hasClass("has-error") == false
 				&& $repassword.parent().hasClass("has-error") == false
 				&& $email.parent().hasClass("has-error") == false ){
-			
-			alert("Form valid !!!");
-			/*
-			 * Do stuff here
-			 */
-		}
-		else{
-			alert("Form invalid");
+			todo();//What to do in case of it's correct
 		}
 		e.preventDefault();
 	});
-	
-	//Use regex to valid emails
-	 function validateEmail($email) {
-		 if($email.length != 0){
-		  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-		  return emailReg.test( $email );
-		 }
-		 else{
-			 return false;
-		 }
-	}
-});
+}
+
+//Use regex to valid emails
+function validateEmail($email) {
+	 if($email.length != 0){
+	  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+	  return emailReg.test( $email );
+	 }
+	 else{
+		 return false;
+	 }
+}
