@@ -11,15 +11,16 @@ $(document).ready(function(){
 		$email = $('#email'),
 		$submit = $('#submit'),
 		$formControle = $('.form-control:not(#email)'),
-		minLength = 5;
+		minLength = 5,//Minimal length
+		maxLength = 20;//Maximal length
 	
 	//Check the key on login
 	$formControle.on('focus keyup hover change',function(){
-		if($(this).val().length < minLength){
+		if($(this).val().length < minLength || $(this).val().length > maxLength){
 			$(this).parent().removeClass("has-success");
 			$(this).parent().addClass("has-error");
 			if(!$(this).parent().find('.alert').is(':animated')){
-				$(this).parent().find('.alert').text('You should use more than '+minLength+' characters');
+				$(this).parent().find('.alert').text('You should use between '+minLength+' and '+maxLength+' characters');
 				$(this).parent().find('.alert').show("slow");
 			}
 		}
