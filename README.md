@@ -38,30 +38,30 @@ Simple front-end login page using Jquery
 	
 this script will check 
 
-	* ##### login (#login)
-   Min and Max length
+* ##### login (#login)
+Min and Max length
 
-	* ##### password (#password)
-   Min and Max length
+* ##### password (#password)
+Min and Max length
 
-	* ##### repassword (#repassword)
-   	Min and Max length & if same as "password"
+* ##### repassword (#repassword)
+Min and Max length & if same as "password"
 
-	* ##### email (#email)
-  	regex if valid email
+* ##### email (#email)
+regex if valid email
 
 Ex : 
 
-	```html
+```html
 	<div class="form-group has-feedback">
 		<label class="control-label" for="login" >Login :</label>
 		<input id="login" type="text" class="form-control" placeholder="login">
 		<span class="glyphicon glyphicon-user form-control-feedback"></span>
 		<div class="alert alert-block alert-danger" style="display:none"></div>
 	</div>
-	```
+```
 	
-	##### Note: Do not forget to use the class "form-control".
+##### Note: Do not forget to use the class "form-control".
 
 	
 ### feel free to modify it. Enjoy !
