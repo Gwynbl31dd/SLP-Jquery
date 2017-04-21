@@ -1,5 +1,5 @@
 /**
- * SLP v 0.1.0
+ * SLP v 0.2.0
  * @author Anthony Paulin <paulin.anthony@gmail.com>
  * @since 13-04-2017
  */
@@ -10,34 +10,55 @@ $(document).ready(function(){
 		$repassword = $('#repassword'),
 		$email = $('#email'),
 		$submit = $('#submit'),
-		$formControle = $('.form-control');
+		$formControle = $('.form-control:not(#email)'),
+		minLength = 5;
 	
 	//Check the key on login
-	$formControle.on('focus keyup',function(){
-		if($(this).val().length < 5){
-			$(this).css("border-color", "red" );
+	$formControle.on('focus keyup hover change',function(){
+		if($(this).val().length < minLength){
+			$(this).parent().removeClass("has-success");
+			$(this).parent().addClass("has-error");
+			if(!$(this).parent().find('.alert').is(':animated')){
+				$(this).parent().find('.alert').text('You should use more than '+minLength+' characters');
+				$(this).parent().find('.alert').show("slow");
+			}
 		}
 		else{
-			$(this).css("border-color", "green" );
+			$(this).parent().removeClass("has-error");
+			$(this).parent().addClass("has-success");
+			if(!$(this).parent().find('.alert').is(':animated')){
+				$(this).parent().find('.alert').hide("slow");
+			}
 		}
 	});
 	//check the mail validation
 	$email.on('focus keyup hover change',function(){
 		if(!validateEmail($(this).val())){
-			$(this).css("border-color", "red" );
+			$(this).parent().removeClass("has-success");
+			$(this).parent().addClass("has-error");
+			if(!$(this).parent().find('.alert').is(':animated')){
+				$(this).parent().find('.alert').text('You should use a valid Email');
+				$(this).parent().find('.alert').show("slow");
+			}
 		}
 		else{
-			$(this).css("border-color", "green" );
+			$(this).parent().removeClass("has-error");
+			$(this).parent().addClass("has-success");
+			if(!$(this).parent().find('.alert').is(':animated')){
+				$(this).parent().find('.alert').hide("slow");
+			}
 		}
 	});
 	//Check the repassword validation
-	$repassword.on('focus keyup change',function(){
+	$repassword.on('focus keyup hover change',function(){
 		if($repassword.val()){
 			if($password.val() != $repassword.val()){
-				$repassword.css("border-color", "red");
+				$repassword.parent().removeClass("has-success");
+				$repassword.parent().addClass("has-error");
 			}
 			else{
-				$repassword.css("border-color", "green");
+				$repassword.parent().removeClass("has-error");
+				$repassword.parent().addClass("has-success");
 			}
 		}
 	});
@@ -45,10 +66,12 @@ $(document).ready(function(){
 	//Finaly, check all the CSS entries
 	$submit.click(function(e){
 		//Check all the entry
-		if($login.css("border-top-color") != "rgb(255, 0, 0)"
-				&& $password.css("border-top-color") != "rgb(255, 0, 0)"
-				&& $repassword.css("border-top-color") != "rgb(255, 0, 0)"
-				&& $email.css("border-top-color") != "rgb(255, 0, 0)" ){
+		
+		if($login.parent().hasClass("has-error") == false
+				&& $password.parent().hasClass("has-error") == false
+				&& $repassword.parent().hasClass("has-error") == false
+				&& $email.parent().hasClass("has-error") == false ){
+			
 			alert("Form valid !!!");
 			/*
 			 * Do stuff here
@@ -59,6 +82,7 @@ $(document).ready(function(){
 		}
 		e.preventDefault();
 	});
+	
 	//Use regex to valid emails
 	 function validateEmail($email) {
 		 if($email.length != 0){
